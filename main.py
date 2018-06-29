@@ -1,21 +1,10 @@
 #coding: utf-8
 
-#author: Cláudio Rogério Carvalho Filho
-
-#####################
-#### eXcript.com ####
-#####################
+#author: Aderbal Machado Ribeiro
 
 from kivy.app import App
-from kivy.uix.label import Label
 
-def build():
-    return Label(text="Hello World")
+class HelloApp(App):
+    pass
 
-hello_world = App()
-hello_world.build = build
-hello_world.run()
-
-
-
-
+HelloApp().run()
