@@ -1,0 +1,138 @@
+ScreenManagement:
+
+    Login:
+
+    Destrava:
+
+<Login>:
+
+    name: "Login"
+
+    BoxLayout:
+
+        orientation: "vertical"
+
+        TextInput:
+            background_color: 0,0,0,0
+            foreground_color: 0,1,255,0.7
+            size_hint_y: None
+            height: dp(30)
+            disabled: True
+
+        TextInput:
+            id: login
+            hint_text: "Usuário"
+            background_color: 1,1,1,1
+            font_size: 25
+            multiline: False
+            size_hint_y: None
+            height: dp(35)
+
+        TextInput:
+            background_color: 0,0,0,0
+            foreground_color: 0,1,255,0.7
+            disabled: True
+            size_hint_y: None
+            height: dp(30)
+
+        TextInput:
+            id: passw
+            hint_text: "Senha"
+            background_color: 1,1,1,1
+            font_size: 25
+            multiline: False
+            password: True
+            size_hint_y: None
+            height: dp(35)
+
+        TextInput:
+            background_color: 0,0,0,0
+            foreground_color: 0,1,255,0.7
+            disabled: True
+
+        BoxLayout:
+
+            size_hint_y: None
+
+            height: dp(45)
+
+            Button:
+                text: "Login"
+                on_release: root.login()
+
+            Button:
+                text: "Sair"
+                on_release: app.get_running_app().stop()
+
+<Destrava>:
+
+    name: "Destrava"
+
+    BoxLayout:
+
+        orientation: "vertical"
+
+        TextInput:
+            background_color: 0,0,0,0
+            foreground_color: 0,1,255,0.7
+            disabled: True
+            size_hint_y: None
+            height: dp(5)
+
+        TextInput:
+            id: texto
+            hint_text: "Texto"
+            background_color: 1,1,1,1
+            font_size: 25
+            multiline: False
+            size_hint_y: None
+            height: dp(35)
+
+        TextInput:
+            background_color: 0,0,0,0
+            foreground_color: 0,1,255,0.7
+            disabled: True
+            size_hint_y: None
+            height: dp(5)
+
+        TextInput:
+            id: contra_texto
+            hint_text: "Contra-Texto"
+            background_color: 1,1,1,1
+            font_size: 25
+            multiline: False
+            size_hint_y: None
+            height: dp(35)
+
+        TextInput:
+            background_color: 0,0,0,0
+            foreground_color: 0,1,255,0.7
+            disabled: True
+            size_hint_y: None
+            height: dp(5)
+
+        TextInput:
+            id: msg
+            background_color: 1,1,1,1
+            font_size: 25
+
+        TextInput:
+            background_color: 0,0,0,0
+            foreground_color: 0,1,255,0.7
+            disabled: True
+            size_hint_y: None
+            height: dp(5)
+
+        BoxLayout:
+
+            size_hint_y: None
+
+            height: dp(35)
+
+            Button:
+                text: "destrava"
+                on_release: root.destrava()
+
+            Button:
+                text: "Sair"
+                on_release: app.get_running_app().stop()

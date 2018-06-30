@@ -1,12 +1,12 @@
 [app]
 
 # (str) Title of your application
-title = Hello App
+title = Blackout
 
 # (str) Package name
-package.name = helloapp
+package.name = blackout
 # (str) Package domain (needed for android/ios packaging)
-package.domain = helloapp.org
+package.domain = blackout.org
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -71,7 +71,8 @@ fullscreen = 1
 android.api = 19
 
 # (int) Minimum API required
-android.minapi = 9
+# android.minapi = 9
+android.minapi = 13
 
 # (int) Android SDK version to use
 android.sdk = 21
