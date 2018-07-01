@@ -82,22 +82,7 @@ ScreenManagement:
         TextInput:
             id: texto
             hint_text: "Texto"
-            background_color: 1,1,1,1
-            font_size: 25
-            multiline: False
-            size_hint_y: None
-            height: dp(35)
-
-        TextInput:
-            background_color: 0,0,0,0
-            foreground_color: 0,1,255,0.7
-            disabled: True
-            size_hint_y: None
-            height: dp(5)
-
-        TextInput:
-            id: contra_texto
-            hint_text: "Contra-Texto"
+            text: root.get_texto()
             background_color: 1,1,1,1
             font_size: 25
             multiline: False
@@ -114,7 +99,9 @@ ScreenManagement:
         TextInput:
             id: msg
             background_color: 1,1,1,1
-            font_size: 25
+            font_name: 'courbd'
+            font_size: 20
+            disabled: True
 
         TextInput:
             background_color: 0,0,0,0
@@ -127,7 +114,7 @@ ScreenManagement:
 
             size_hint_y: None
 
-            height: dp(35)
+            height: dp(45)
 
             Button:
                 text: "destrava"
