@@ -1,3 +1,5 @@
+#:import p kivy.utils.platform
+
 ScreenManagement:
 
     Login:
@@ -26,7 +28,7 @@ ScreenManagement:
             font_size: 25
             multiline: False
             size_hint_y: None
-            height: dp(35)
+            height: root.h
 
         TextInput:
             background_color: 0,0,0,0
@@ -43,7 +45,7 @@ ScreenManagement:
             multiline: False
             password: True
             size_hint_y: None
-            height: dp(35)
+            height: root.h
 
         TextInput:
             background_color: 0,0,0,0
@@ -72,6 +74,12 @@ ScreenManagement:
 
         orientation: "vertical"
 
+        ZBarCam:
+            id: zbarcam
+            code_types: "qrcode", "ean13"
+            size_hint_y: None
+            height: dp(0)
+
         TextInput:
             background_color: 0,0,0,0
             foreground_color: 0,1,255,0.7
@@ -82,12 +90,12 @@ ScreenManagement:
         TextInput:
             id: texto
             hint_text: "Texto"
-            text: root.get_texto()
+            text: root.zbar(zbarcam=zbarcam, symbols=zbarcam.symbols)
             background_color: 1,1,1,1
             font_size: 25
             multiline: False
             size_hint_y: None
-            height: dp(35)
+            height: root.h
 
         TextInput:
             background_color: 0,0,0,0
@@ -99,8 +107,8 @@ ScreenManagement:
         TextInput:
             id: msg
             background_color: 1,1,1,1
-            font_name: 'courbd'
-            font_size: 20
+            #font_name: 'courbd'
+            font_size: 28
             disabled: True
 
         TextInput:
@@ -117,7 +125,19 @@ ScreenManagement:
             height: dp(45)
 
             Button:
-                text: "destrava"
+                text: "Ligar QRCode"
+                on_release: root.ligar_qrcode(zbarcam=zbarcam)
+
+            Button:
+                text: "Desligar QRCode"
+                on_release: root.desligar_qrcode(zbarcam=zbarcam)
+
+            Button:
+                text: "Última Leitura"
+                on_release: root.ultima()
+
+            Button:
+                text: "Destrava"
                 on_release: root.destrava()
 
             Button:

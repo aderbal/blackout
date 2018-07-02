@@ -5,14 +5,18 @@ title = Blackout
 
 # (str) Package name
 package.name = blackout
+
 # (str) Package domain (needed for android/ios packaging)
-package.domain = blackout.org
+package.domain = com.blackout.org
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = 
+source.include_exts = py,png,jpg,kv,atlas
+
+# (list) List of inclusions using pattern matching
+#source.include_patterns = assets/*,images/*.png
 
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec
@@ -32,7 +36,8 @@ version = 0.1
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy
-requirements = kivy
+requirements = kivy, pil, libiconv, libzbar, zbarlight==1.2
+
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -40,15 +45,19 @@ requirements = kivy
 
 # (list) Garden requirements
 #garden_requirements =
+garden_requirements = xcamera
 
 # (str) Presplash of the application
-# presplash.filename = images/presplash.png
+#presplash.filename = %(source.dir)s/data/presplash.png
 
 # (str) Icon of the application
-# icon.filename = icon.png
+#icon.filename = %(source.dir)s/data/icon.png
 
 # (str) Supported orientation (one of landscape, portrait or all)
 orientation = all
+
+# (list) List of service to declare
+#services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
 
 #
 # OSX Specific
@@ -57,6 +66,12 @@ orientation = all
 #
 # author = © Copyright Info
 
+# change the major version of python used by the app
+osx.python_version = 3
+
+# Kivy version to use
+osx.kivy_version = 1.9.1
+
 #
 # Android specific
 #
@@ -64,14 +79,20 @@ orientation = all
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 1
 
+# (string) Presplash background color (for new android toolchain)
+# Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
+# red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
+# darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
+# olive, purple, silver, teal.
+#android.presplash_color = #FFFFFF
+
 # (list) Permissions
-#android.permissions = INTERNET
+android.permissions = CAMERA
 
 # (int) Android API to use
 android.api = 19
 
 # (int) Minimum API required
-# android.minapi = 9
 android.minapi = 13
 
 # (int) Android SDK version to use
@@ -101,6 +122,15 @@ android.ndk = 9c
 # (str) Android entry point, default is ok for Kivy-based app
 #android.entrypoint = org.renpy.android.PythonActivity
 
+# (list) Pattern to whitelist for the whole project
+#android.whitelist =
+
+# (str) Path to a custom whitelist file
+#android.whitelist_src =
+
+# (str) Path to a custom blacklist file
+#android.blacklist_src =
+
 # (list) List of Java .jar files to add to the libs so that pyjnius can access
 # their classes. Don't add jars that you do not need, since extra jars can slow
 # down the build process. Allows wildcards matching, for example:
@@ -111,9 +141,16 @@ android.ndk = 9c
 # directory containing the files)
 #android.add_src =
 
-# (str) python-for-android branch to use, if not master, useful to try
-# not yet merged features.
-#android.branch = master
+# (list) Android AAR archives to add (currently works only with sdl2_gradle
+# bootstrap)
+#android.add_aars =
+
+# (list) Gradle dependencies to add (currently works only with sdl2_gradle
+# bootstrap)
+#android.gradle_dependencies =
+
+# (str) python-for-android branch to use, defaults to master
+p4a.branch = master
 
 # (str) OUYA Console category. Should be one of GAME or APP
 # If you leave this blank, OUYA support will not be enabled
@@ -142,9 +179,39 @@ android.ndk = 9c
 # project.properties automatically.)
 #android.library_references =
 
+# (str) Android logcat filters to use
+android.logcat_filters = *:S python:D
+
+# (bool) Copy library instead of making a libpymodules.so
+#android.copy_libs = 1
+
+# (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86
+android.arch = armeabi-v7a
+
+#
+# Python for android (p4a) specific
+#
+
+# (str) python-for-android git clone directory (if empty, it will be automatically cloned from github)
+#p4a.source_dir =
+
+# (str) The directory in which python-for-android should look for your own build recipes (if any)
+#p4a.local_recipes =
+p4a.local_recipes = %(source.dir)s/python-for-android/recipes/
+
+# (str) Filename to the hook for p4a
+#p4a.hook =
+
+# (str) Bootstrap to use for android builds
+# p4a.bootstrap = sdl2
+
+
 #
 # iOS specific
 #
+
+# (str) Path to a custom kivy-ios folder
+#ios.kivy_ios_dir = ../kivy-ios
 
 # (str) Name of the certificate to use for signing the debug version
 # Get a list of available identities: buildozer ios list_identities
@@ -162,6 +229,11 @@ log_level = 1
 # (int) Display warning if buildozer is run as root (0 = False, 1 = True)
 warn_on_root = 1
 
+# (str) Path to build artifact storage, absolute or relative to spec file
+# build_dir = ./.buildozer
+
+# (str) Path to build output (i.e. .apk, .ipa) storage
+# bin_dir = ./bin
 
 #    -----------------------------------------------------------------------------
 #    List as sections
