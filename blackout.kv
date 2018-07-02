@@ -15,37 +15,102 @@ ScreenManagement:
         orientation: "vertical"
 
         TextInput:
+            id: spaces
+            background_color: 0,0,0,0
+            foreground_color: 0,1,255,0.7
+            size_hint_y: None
+            height: dp(200)
+            disabled: True
+
+        BoxLayout:
+
+            orientation: "horizontal"
+
+            size_hint_y: None
+            height: dp(30)
+
+            TextInput:
+                background_color: 0,0,0,0
+                foreground_color: 0,1,255,0.7
+                disabled: True
+
+            TextInput:
+                id: login
+                hint_text: "Usuário"
+                background_color: 1,1,1,1
+                font_size: 25
+                multiline: False
+                size_hint_y: None
+                height: root.h
+
+            TextInput:
+                background_color: 0,0,0,0
+                foreground_color: 0,1,255,0.7
+                disabled: True
+
+        TextInput:
             background_color: 0,0,0,0
             foreground_color: 0,1,255,0.7
             size_hint_y: None
             height: dp(30)
             disabled: True
 
-        TextInput:
-            id: login
-            hint_text: "Usuário"
-            background_color: 1,1,1,1
-            font_size: 25
-            multiline: False
+        BoxLayout:
+
+            orientation: "horizontal"
+
             size_hint_y: None
-            height: root.h
+            height: dp(30)
+
+            TextInput:
+                background_color: 0,0,0,0
+                foreground_color: 0,1,255,0.7
+                disabled: True
+
+            TextInput:
+                id: passw
+                hint_text: "Senha"
+                background_color: 1,1,1,1
+                font_size: 25
+                multiline: False
+                password: True
+                size_hint_y: None
+                height: root.h
+
+            TextInput:
+                background_color: 0,0,0,0
+                foreground_color: 0,1,255,0.7
+                disabled: True
 
         TextInput:
             background_color: 0,0,0,0
             foreground_color: 0,1,255,0.7
-            disabled: True
             size_hint_y: None
             height: dp(30)
+            disabled: True
 
-        TextInput:
-            id: passw
-            hint_text: "Senha"
-            background_color: 1,1,1,1
-            font_size: 25
-            multiline: False
-            password: True
+        BoxLayout:
+
+            orientation: "horizontal"
+
             size_hint_y: None
-            height: root.h
+            height: dp(60)
+
+            TextInput:
+                background_color: 0,0,0,0
+                foreground_color: 0,1,255,0.7
+                disabled: True
+
+            TextInput:
+                id: msg
+                background_color: 0,0,0,0
+                foreground_color: 0,1,255,0.7
+                enabled: False
+
+            TextInput:
+                background_color: 0,0,0,0
+                foreground_color: 0,1,255,0.7
+                disabled: True
 
         TextInput:
             background_color: 0,0,0,0
@@ -54,17 +119,24 @@ ScreenManagement:
 
         BoxLayout:
 
+            orientation: "vertical"
+
+            size_hint_y: None
+            height: dp(30)
+
+        BoxLayout:
+
             size_hint_y: None
 
             height: dp(45)
 
             Button:
-                text: "Login"
-                on_release: root.login()
-
-            Button:
                 text: "Sair"
                 on_release: app.get_running_app().stop()
+
+            Button:
+                text: "Login"
+                on_release: root.login()
 
 <Destrava>:
 
@@ -96,6 +168,7 @@ ScreenManagement:
             multiline: False
             size_hint_y: None
             height: root.h
+            on_text: root.text(self.text)
 
         TextInput:
             background_color: 0,0,0,0

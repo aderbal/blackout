@@ -27,8 +27,10 @@ class Login(Screen):
 
     def login(self):
 
-        #if self.ids.login.text == "real" and self.ids.passw.text == "real@1480":
-        self.manager.current = "Destrava"
+        if self.ids.login.text == "real" and self.ids.passw.text == "real@1480":
+            self.manager.current = "Destrava"
+        else:
+            self.ids.msg.text = "Usuário e/ou Senha Invalido(a)s"
 
 
 class Destrava(Screen):
@@ -73,6 +75,10 @@ class Destrava(Screen):
             ret = self.ids.texto.text
 
         return ret
+
+    def text(self, text):
+
+        if text: self.destrava()
 
     def ultima(self):
 
