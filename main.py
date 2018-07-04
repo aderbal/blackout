@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
 from kivy.utils import platform
 from kivy.metrics import dp
+from kivy.graphics import Rectangle, Color
 from zbarcam import ZBarCam
 
 import base64
@@ -20,10 +21,22 @@ class Login(Screen):
 
         super(Login, self).__init__(**kwargs)
 
+        with self.canvas.before:
+            Color(211,211,211, 0.8, mode='rgba')
+            self.rect = Rectangle(pos=self.pos, size=self.size)
+
+        self.bind(size=self.update_rect)
+
         if platform in ('linux', 'windows', 'macosx'):
             self.h = dp(39)
         else:
-            self.h = dp(29)
+            self.h = dp(28)
+
+    def update_rect(self, *args):
+
+        self.rect.pos = self.pos
+
+        self.rect.size = self.size
 
     def login(self):
 
@@ -42,10 +55,22 @@ class Destrava(Screen):
 
         super(Destrava, self).__init__(**kwargs)
 
+        with self.canvas.before:
+            Color(211,211,211, 0.8, mode='rgba')
+            self.rect = Rectangle(pos=self.pos, size=self.size)
+
+        self.bind(size=self.update_rect)
+
         if platform in ('linux', 'windows', 'macosx'):
             self.h = dp(39)
         else:
-            self.h = dp(27)
+            self.h = dp(28)
+
+    def update_rect(self, *args):
+
+        self.rect.pos = self.pos
+
+        self.rect.size = self.size
 
     def qrc(self, zbarcam=None, h=None):
 
