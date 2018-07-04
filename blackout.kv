@@ -1,5 +1,3 @@
-#:import p kivy.utils.platform
-
 ScreenManagement:
 
     Login:
@@ -198,16 +196,12 @@ ScreenManagement:
             height: dp(45)
 
             Button:
-                text: "Ligar QRCode"
-                on_release: root.ligar_qrcode(zbarcam=zbarcam)
+                text: "QRCode"
+                on_release: root.qrc(zbarcam=zbarcam, h=dp(500))
 
             Button:
-                text: "Desligar QRCode"
-                on_release: root.desligar_qrcode(zbarcam=zbarcam)
-
-            Button:
-                text: "Última Leitura"
-                on_release: root.ultima()
+                text: "Leitura"
+                on_release: root.leitura()
 
             Button:
                 text: "Destrava"

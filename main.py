@@ -36,6 +36,7 @@ class Login(Screen):
 class Destrava(Screen):
 
     h = None
+    zb = False
 
     def __init__(self, **kwargs):
 
@@ -46,23 +47,25 @@ class Destrava(Screen):
         else:
             self.h = dp(27)
 
-    def money(self, st="", r=True):
-
-        st = "{:,.2f}".format(float(st))
-
-        if not r: st = st.replace(".00", "")
-
-        return "{}{}".format("R$ " if r else "", st.replace(",", "#").replace(".", ",").replace("#", "."))
-
-    def ligar_qrcode(self, zbarcam=None):
+    def qrc(self, zbarcam=None, h=None):
 
         if zbarcam:
-            self.ids.zbarcam.height = dp(self.height)
+            if self.zb:
+                self.desligar_qrcode(zbarcam=zbarcam)
+            else:
+                self.ligar_qrcode(zbarcam=zbarcam, h=h)
+
+    def ligar_qrcode(self, zbarcam=None, h=None):
+
+        if zbarcam:
+            self.zb = True
+            self.ids.zbarcam.height = dp(h)
             zbarcam.start()
 
     def desligar_qrcode(self, zbarcam=None):
 
         if zbarcam:
+            self.zb = False
             self.ids.zbarcam.height = dp(0)
             zbarcam.stop()
 
@@ -80,7 +83,7 @@ class Destrava(Screen):
 
         if text: self.destrava()
 
-    def ultima(self):
+    def leitura(self):
 
         try:
             texto = open('crypt', 'r').read()
@@ -89,21 +92,35 @@ class Destrava(Screen):
 
         self.ids.texto.text = texto
 
+    def money(self, st="", r=True):
+
+        if st == "": st = "0"
+
+        st = "{:,.2f}".format(float(st))
+
+        if not r: st = st.replace(".00", "")
+
+        return "{}{}".format("R$ " if r else "", st.replace(",", "#").replace(".", ",").replace("#", "."))
+
     def destrava(self):
 
         botoes = {"a": "bola extra", "b": "troca numeros",  "c": "abre cartelas",  "d": "mais",
                   "e": "jogar", "f": "apostar", "g": "ajuda", "h": "menos", "j": "cobrar"}
 
         try:
-            texto = base64.b64decode(self.ids.texto.text.replace("@", "I").replace("#", "l")).split(" ")
-            self.ids.msg.text = """Casa: {} Numero: {}\n
-Creditos:\n
+            texto = base64.decodestring(self.ids.texto.text.replace("@", "I").replace("#", "l")).replace('\t', '').split(" ")
+            txt = []
+            for t in texto:
+                if t: txt.append(t)
+            texto = txt
+            self.ids.msg.text = """\nCasa: {} Numero: {}\n
+Creditos:
     Cofre: {} Entrada: {} Saida: {} Saldo: {}
     Bonus: {} Percentual: {} % Entrada: {} Saida: {} Saldo: {}\n
-Dinheiro:\n
+Dinheiro:
     Cofre: {} Entrada: {} Saida: {} Saldo: {}
     Bonus: {} Percentual: {} % Entrada: {} Saida: {} Saldo: {}\n
-Sequencia de botoes para o desbloqueio:\n
+Sequencia de botoes para o desbloqueio:
     {} ({}) {} ({}) {} ({}) {} ({}) {} ({})""".format(texto[0].split("_")[1],
                                                       texto[0].split("_")[0],
                                                       self.money(st=texto[1], r=False),
@@ -151,4 +168,6 @@ class BlackoutApp(App):
 
         Window.close()
 
-if __name__ == '__main__': BlackoutApp().run()
+if __name__ == '__main__':
+    app = BlackoutApp()
+    app.run()
