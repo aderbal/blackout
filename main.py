@@ -8,7 +8,6 @@ from kivy.core.window import Window
 from kivy.utils import platform
 from kivy.metrics import dp
 from kivy.graphics import Rectangle, Color
-from zbarcam import ZBarCam
 
 import base64
 
