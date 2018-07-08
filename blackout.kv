@@ -197,7 +197,7 @@ ScreenManagement:
 
             Button:
                 text: "QRCode"
-                on_release: root.qrc(zbarcam=zbarcam, h=dp(250))
+                on_release: root.qrc(zbarcam=zbarcam, h=dp(250), w=dp(500))
 
             Button:
                 text: "Leitura"
@@ -209,4 +209,4 @@ ScreenManagement:
 
             Button:
                 text: "Sair"
-                on_release: app.get_running_app().stop()
+                on_release: root.sair(zbarcam=zbarcam)

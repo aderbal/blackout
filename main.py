@@ -72,19 +72,19 @@ class Destrava(Screen):
 
         self.rect.size = self.size
 
-    def qrc(self, zbarcam=None, h=None):
+    def qrc(self, zbarcam=None, h=None, w=None):
 
         if zbarcam:
             if self.zb:
                 self.desligar_qrcode(zbarcam=zbarcam)
             else:
-                self.ligar_qrcode(zbarcam=zbarcam, h=h)
+                self.ligar_qrcode(zbarcam=zbarcam, h=h, w=w)
 
-    def ligar_qrcode(self, zbarcam=None, h=None):
+    def ligar_qrcode(self, zbarcam=None, h=None, w=None):
 
         if zbarcam:
             self.zb = True
-            self.ids.zbarcam.height = dp(h)
+            self.ids.zbarcam.height = dp(w) if self.width > self.height else dp(h)
             zbarcam.start()
 
     def desligar_qrcode(self, zbarcam=None):
@@ -103,6 +103,12 @@ class Destrava(Screen):
             ret = self.ids.texto.text
 
         return ret
+
+    def sair(self, zbarcam=None):
+
+        self.desligar_qrcode(zbarcam=zbarcam)
+
+        app.get_running_app().stop()
 
     def text(self, text):
 
@@ -146,8 +152,8 @@ Dinheiro:
     Cofre: {} Entrada: {} Saida: {} Saldo: {}
     Bonus: {} Percentual: {} % Entrada: {} Saida: {} Saldo: {}\n
 Sequencia de botoes para o desbloqueio:
-    {} ({}) {} ({}) {} ({}) {} ({}) {} ({})""".format(texto[0].split("_")[1],
-                                                      texto[0].split("_")[0],
+    {} ({}) {} ({}) {} ({}) {} ({}) {} ({})""".format(texto[0].split("_")[0],
+                                                      texto[0].split("_")[1],
                                                       self.money(st=texto[1], r=False),
                                                       self.money(st=texto[2], r=False),
                                                       self.money(st=texto[3], r=False),
@@ -162,7 +168,7 @@ Sequencia de botoes para o desbloqueio:
                                                       self.money(st=float(texto[3])/4),
                                                       self.money(st=(float(texto[2])-float(texto[3]))/4),
                                                       self.money(st=float(texto[4])/4),
-                                                      self.money(st=float(texto[5])/4, r=False),
+                                                      self.money(st=float(texto[5]), r=False),
                                                       self.money(st=float(texto[6])/4, r=False),
                                                       self.money(st=float(texto[7])/4, r=False),
                                                       self.money(st=(float(texto[6])-float(texto[7]))/4, r=False),
